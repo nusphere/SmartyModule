@@ -12,7 +12,7 @@
         "view"
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.0 || ^8.0",
         "laminas/laminas-view": "^2.11",
         "laminas/laminas-servicemanager": "^3.5",
         "laminas/laminas-eventmanager": "^3.2",
