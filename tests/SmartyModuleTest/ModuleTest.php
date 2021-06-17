@@ -8,9 +8,9 @@ use ApplicationTest\Bootstrap;
 use PHPUnit\Framework\TestCase;
 use SmartyModule\View\Renderer\SmartyRenderer;
 use SmartyModule\View\Strategy\SmartyStrategy;
-use Zend\View\Resolver\ResolverInterface;
-use Zend\View\Resolver\TemplateMapResolver;
-use Zend\View\Resolver\TemplatePathStack;
+use Laminas\View\Resolver\ResolverInterface;
+use Laminas\View\Resolver\TemplateMapResolver;
+use Laminas\View\Resolver\TemplatePathStack;
 
 class ModuleTest extends TestCase
 {

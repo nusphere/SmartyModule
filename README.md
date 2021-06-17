@@ -1,23 +1,13 @@
-# Welcome to the SmartyModule for Zend Framework 2!
+# Welcome to the SmartyModule for Laminas Framework!
 
-SmartyModule is a module that integrates the Smarty templating engine with Zend Framework 2.
+SmartyModule is a module that integrates the Smarty templating engine with Laminas.
 
-Version: 1.2.0
-
-## Istallation
+## Installation
 
 ### Composer
 
-1. Add `"murganikolay/smarty-module": "1.2.0"` to your `composer.json` file and run php composer.phar update.
-2. Add SmartyModule to your `config/application.config.php` file under the modules key.
-
-### Manual
-
-1. `git clone https://github.com/MurgaNikolay/SmartyModule.git` in to `vendor` dir
-2. Put Smarty in to `vendor` dir
-3. Setup autoloader for load Smarty.
-3. Add SmartyModule to your `config/application.config.php` file under the modules key.
-
+1. Add `"maglnet/smarty-module": "^2.0"` to your `composer.json` file and run `composer update`.
+2. Add `SmartyModule` to your `config/application.config.php` file under the modules key.
 
 ### Configuration
 
@@ -50,4 +40,4 @@ Change you Application config like this:
     ...
 
 
-Aditional info about view manager: [Zend\View](http://framework.zend.com/manual/2.0/en/modules/zend.view.quick-start.html "Zend\View").
+Aditional info about view manager: [Laminas\View](http://framework.zend.com/manual/2.0/en/modules/zend.view.quick-start.html "Laminas\View").

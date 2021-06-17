@@ -2,9 +2,9 @@
 
 namespace SmartyModule\Service;
 
-use Zend\View\Resolver as ViewResolver;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Resolver as ViewResolver;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * @category   Zend
@@ -16,7 +16,7 @@ class SmartyViewResolverFactory implements FactoryInterface
     /**
      * Create the aggregate view resolver
      *
-     * Creates a Zend\View\Resolver\AggregateResolver and attaches the template
+     * Creates a Laminas\View\Resolver\AggregateResolver and attaches the template
      * map resolver and path stack resolver
      *
      * @param  ServiceLocatorInterface $serviceLocator

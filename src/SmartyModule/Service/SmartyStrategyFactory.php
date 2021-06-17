@@ -1,8 +1,8 @@
 <?php
 namespace SmartyModule\Service;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
 use SmartyModule\View\Strategy\SmartyStrategy;
 
 

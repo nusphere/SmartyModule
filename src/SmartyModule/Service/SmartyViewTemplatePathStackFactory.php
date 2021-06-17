@@ -9,9 +9,9 @@
 
 namespace SmartyModule\Service;
 
-use Zend\View\Resolver as ViewResolver;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Resolver as ViewResolver;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class SmartyViewTemplatePathStackFactory implements FactoryInterface
 {
