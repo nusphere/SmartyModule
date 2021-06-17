@@ -8,10 +8,10 @@
 namespace SmartyModule\View\Strategy;
 
 use SmartyModule\View\Renderer\SmartyRenderer;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\View\ViewEvent;
-use Zend\View\Model;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\View\ViewEvent;
+use Laminas\View\Model;
 
 class SmartyStrategy implements ListenerAggregateInterface
 {
@@ -39,7 +39,7 @@ class SmartyStrategy implements ListenerAggregateInterface
     /**
      * Retrieve the composed renderer
      *
-     * @param \Zend\View\ViewEvent $e
+     * @param \Laminas\View\ViewEvent $e
      * @return SmartyRenderer
      */
     public function selectRenderer(ViewEvent $e)
@@ -67,7 +67,7 @@ class SmartyStrategy implements ListenerAggregateInterface
      * Populates the content of the response object from the view rendering
      * results.
      *
-     * @param \Zend\View\ViewEvent $e
+     * @param \Laminas\View\ViewEvent $e
      * @return void
      */
     public function injectResponse(ViewEvent $e)

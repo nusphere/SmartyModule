@@ -9,22 +9,20 @@
 
 namespace SmartyModule\Service;
 
-use Zend\View\Resolver as ViewResolver;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Resolver as ViewResolver;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class SmartyViewTemplatePathStackFactory implements FactoryInterface
 {
 
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $serviceLocator->get('Config');
+        $config = $container->get('Config');
         $templatePathStack = new ViewResolver\TemplatePathStack();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];
@@ -39,4 +37,14 @@ class SmartyViewTemplatePathStackFactory implements FactoryInterface
         return $templatePathStack;
     }
 
+    /**
+     * Create service
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return mixed
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator, 'SmartyViewTemplatePathStack');
+    }
 }

@@ -1,8 +1,12 @@
 <?php
 namespace SmartyModule\Service;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
 use SmartyModule\View\Strategy\SmartyStrategy;
 
 
@@ -14,6 +18,14 @@ use SmartyModule\View\Strategy\SmartyStrategy;
  */
 class SmartyStrategyFactory implements  FactoryInterface {
 
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $smartyRenderer = $container->get('SmartyRenderer');
+        $smartyStrategy = new SmartyStrategy($smartyRenderer);
+        return $smartyStrategy;
+    }
+
     /**
      * Create service
      *
@@ -22,8 +34,6 @@ class SmartyStrategyFactory implements  FactoryInterface {
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $smartyRenderer = $serviceLocator->get('SmartyRenderer');
-        $smartyStrategy = new SmartyStrategy($smartyRenderer);
-        return $smartyStrategy;
+       return $this($serviceLocator, SmartyStrategy::class);
     }
 }

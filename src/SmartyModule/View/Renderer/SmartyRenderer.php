@@ -8,10 +8,10 @@
 
 namespace SmartyModule\View\Renderer;
 
-use Zend\EventManager\EventManager;
-use Zend\View\Renderer\PhpRenderer,
-    Zend\View\Exception,
-    Zend\View\Model\ModelInterface as Model;
+use Laminas\EventManager\EventManager;
+use Laminas\View\Renderer\PhpRenderer,
+    Laminas\View\Exception,
+    Laminas\View\Model\ModelInterface as Model;
 
 
 class SmartyRenderer extends PhpRenderer
@@ -80,11 +80,11 @@ class SmartyRenderer extends PhpRenderer
     }
 
     /**
-     * @param string|\Zend\View\Model\ModelInterface $nameOrModel
+     * @param string|\Laminas\View\Model\ModelInterface $nameOrModel
      * @param null $values
      * @return mixed|string
-     * @throws \Zend\View\Exception\RuntimeException
-     * @throws \Zend\View\Exception\DomainException
+     * @throws \Laminas\View\Exception\RuntimeException
+     * @throws \Laminas\View\Exception\DomainException
      */
     public function render($nameOrModel, $values = null)
     {
