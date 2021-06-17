@@ -1,6 +1,7 @@
 <?php
 namespace ApplicationTest;//Change this namespace for your test
 
+use Laminas\Mvc\Application;
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stdlib\ArrayUtils;
@@ -49,11 +50,9 @@ class Bootstrap
 
         $config = ArrayUtils::merge($baseConfig, $testConfig);
 
-        $serviceManager = new ServiceManager(new ServiceManagerConfig());
-        $serviceManager->setService('ApplicationConfig', $config);
-        $serviceManager->get('ModuleManager')->loadModules();
+        $app = Application::init($config);
 
-        static::$serviceManager = $serviceManager;
+        static::$serviceManager = $app->getServiceManager();
         static::$config = $config;
     }
 

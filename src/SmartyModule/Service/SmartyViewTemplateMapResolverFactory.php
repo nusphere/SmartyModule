@@ -2,6 +2,10 @@
 
 namespace SmartyModule\Service;
 
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Resolver as ViewResolver;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
@@ -9,6 +13,20 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class SmartyViewTemplateMapResolverFactory implements FactoryInterface
 {
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config = $container->get('Config');
+        $map = array();
+        if (is_array($config) && isset($config['view_manager'])) {
+            $config = $config['view_manager'];
+            if (is_array($config) && isset($config['template_map'])) {
+                $map = $config['template_map'];
+            }
+        }
+        return new ViewResolver\TemplateMapResolver($map);
+    }
+
     /**
      * Create the template map view resolver
      *
@@ -20,14 +38,7 @@ class SmartyViewTemplateMapResolverFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('Config');
-        $map = array();
-        if (is_array($config) && isset($config['view_manager'])) {
-            $config = $config['view_manager'];
-            if (is_array($config) && isset($config['template_map'])) {
-                $map = $config['template_map'];
-            }
-        }
-        return new ViewResolver\TemplateMapResolver($map);
+        return $this($serviceLocator, 'SmartyViewTemplateMapResolver');
     }
+
 }

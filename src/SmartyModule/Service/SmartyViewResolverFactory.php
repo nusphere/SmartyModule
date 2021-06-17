@@ -2,6 +2,10 @@
 
 namespace SmartyModule\Service;
 
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Resolver as ViewResolver;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
@@ -13,6 +17,14 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
  */
 class SmartyViewResolverFactory implements FactoryInterface
 {
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $resolver = new ViewResolver\AggregateResolver();
+        $resolver->attach($container->get('SmartyViewTemplateMapResolver'));
+        $resolver->attach($container->get('SmartyViewTemplatePathStack'));
+        return $resolver;
+    }
     /**
      * Create the aggregate view resolver
      *
@@ -24,9 +36,6 @@ class SmartyViewResolverFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $resolver = new ViewResolver\AggregateResolver();
-        $resolver->attach($serviceLocator->get('SmartyViewTemplateMapResolver'));
-        $resolver->attach($serviceLocator->get('SmartyViewTemplatePathStack'));
-        return $resolver;
+        return $this($serviceLocator, 'SmartyViewResolver');
     }
 }

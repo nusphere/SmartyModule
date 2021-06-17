@@ -1,8 +1,13 @@
 <?php
 namespace SmartyModule\Service;
 
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\ServiceManager\FactoryInterface;
+use Laminas\View\Renderer\PhpRenderer;
 use SmartyModule\View\Renderer\SmartyRenderer;
 
 
@@ -14,16 +19,10 @@ use SmartyModule\View\Renderer\SmartyRenderer;
  */
 class SmartyRendererFactory implements  FactoryInterface {
 
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $smarty = new \Smarty();
-        $config = $serviceLocator->get('Config');
+        $config = $container->get('Config');
         if (isset($config['view_manager']) && isset($config['view_manager']['smarty_defaults'])) {
             $smartyOptions = $config['view_manager']['smarty_defaults'];
             if (isset($config['view_manager']['smarty'])) {
@@ -44,17 +43,22 @@ class SmartyRendererFactory implements  FactoryInterface {
             && $config['view_manager']['smarty_set_path_stack_dirs']
             && isset($config['view_manager']['template_path_stack'])
         ){
-                $smarty->setTemplateDir($config['view_manager']['template_path_stack']);
+            $smarty->setTemplateDir($config['view_manager']['template_path_stack']);
         }
 
-        $resolver = $serviceLocator->get('SmartyViewResolver');
-        $helpers = $serviceLocator->get('ViewHelperManager');
+        $resolver = $container->get('SmartyViewResolver');
+        $helpers = $container->get('ViewHelperManager');
 
         $renderer = new SmartyRenderer();
-        $renderer ->setEventManager($serviceLocator->get('EventManager'));
+        $renderer ->setEventManager($container->get('EventManager'));
         $renderer ->setSmarty($smarty);
         $renderer ->setResolver($resolver);
         $renderer ->setHelperPluginManager($helpers);
         return $renderer;
+    }
+
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator, SmartyRenderer::class);
     }
 }
