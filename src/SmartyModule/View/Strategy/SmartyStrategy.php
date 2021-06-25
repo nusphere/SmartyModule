@@ -7,6 +7,7 @@
  */
 namespace SmartyModule\View\Strategy;
 
+use Laminas\EventManager\ListenerAggregateTrait;
 use SmartyModule\View\Renderer\SmartyRenderer;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\EventManagerInterface;
@@ -15,9 +16,9 @@ use Laminas\View\Model;
 
 class SmartyStrategy implements ListenerAggregateInterface
 {
-    protected $view;
+    use ListenerAggregateTrait;
 
-    protected $viewListener;
+    protected $view;
 
     protected $listeners;
 
@@ -57,7 +58,7 @@ class SmartyStrategy implements ListenerAggregateInterface
             // no ViewModel; do nothing
             return;
         }
-        
+
         return $this->renderer;
     }
 
@@ -95,19 +96,5 @@ class SmartyStrategy implements ListenerAggregateInterface
     {
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
-    }
-
-    /**
-     * Detach all previously attached listeners
-     *
-     * @param EventManagerInterface $events
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
     }
 }
