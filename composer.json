@@ -1,6 +1,6 @@
 {
     "name": "maglnet/smarty-module",
-    "description": "Smarty template engine module for Zend Framework 2",
+    "description": "Smarty template engine module for Laminas 3",
     "homepage": "https://github.com/maglnet/SmartyModule",
     "type": "library",
     "license": "MIT",
