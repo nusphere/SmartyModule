@@ -54,6 +54,16 @@ class SmartyRenderer extends PhpRenderer
     private $eventManager;
 
     /**
+     * @var int
+     */
+    private $__level = 0;
+
+    /**
+     * @var array
+     */
+    private $scopeVars = [];
+
+    /**
      *
      */
     public function init()
@@ -88,7 +98,7 @@ class SmartyRenderer extends PhpRenderer
      */
     public function render($nameOrModel, $values = null)
     {
-
+        $this->__level++;
 
         if ($nameOrModel instanceof Model) {
 
@@ -131,9 +141,18 @@ class SmartyRenderer extends PhpRenderer
 
         // extract all assigned vars (pre-escaped), but not 'this'.
         // assigns to a double-underscored variable, to prevent naming collisions
-        $__vars = $this->vars()->getArrayCopy();
-        $__vars['this'] = $this;
-        $this->smarty->assign($__vars);
+        $this->scopeVars[$this->__level] = $this->vars()->getArrayCopy();
+
+        $scopedVars = [];
+        foreach ($this->scopeVars as $vars) {
+            $scopedVars = array_merge($scopedVars, $vars);
+        }
+
+        // add the PhpRenderer to the given smarty vars
+        $scopedVars['this'] = $this;
+
+        $this->smarty->clearAllAssign();
+        $this->smarty->assign($scopedVars);
 
         while ($this->__template = array_pop($this->__templates)) {
             $this->__template;
@@ -152,6 +171,8 @@ class SmartyRenderer extends PhpRenderer
         }
         
         $this->setVars(array_pop($this->__varsCache));
+        unset($this->scopeVars[$this->__level]);
+        $this->__level--;
         
         return $this->getFilterChain()->filter($this->__content); // filter output
     }
