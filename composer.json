@@ -11,6 +11,11 @@
         "smarty",
         "view"
     ],
+    "config": {
+        "allow-plugins": {
+            "laminas/*": true
+        }
+    },
     "require": {
         "php": "^7.0 || ^8.0",
         "laminas/laminas-view": "^2.11",
