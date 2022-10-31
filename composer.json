@@ -27,6 +27,11 @@
         "laminas/laminas-i18n": "^2.10",
         "laminas/laminas-serializer": "^2.9"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        }
+    },
     "authors": [
         {
             "name": "Matthias Glaub",
