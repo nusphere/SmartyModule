@@ -21,7 +21,7 @@
         "laminas/laminas-view": "^2.11",
         "laminas/laminas-servicemanager": "^3.5",
         "laminas/laminas-eventmanager": "^3.2",
-        "smarty/smarty": "~3.1",
+        "smarty/smarty": "~3.1 | ^4.0",
         "laminas/laminas-dependency-plugin": "^2.0"
     },
     "require-dev": {
