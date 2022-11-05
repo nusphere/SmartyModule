@@ -7,8 +7,11 @@ use Interop\Container\Exception\ContainerException;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Resolver as ViewResolver;
-use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use SmartyModule\Resolver\SmartyViewResolver;
+use SmartyModule\Resolver\SmartyViewTemplateMapResolver;
+use SmartyModule\Resolver\SmartyViewTemplatePathStack;
 
 /**
  * @category   Zend
@@ -17,16 +20,18 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
  */
 class SmartyViewResolverFactory implements FactoryInterface
 {
-
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $resolver = new ViewResolver\AggregateResolver();
-        $resolver->attach($container->get('SmartyViewTemplateMapResolver'));
-        $resolver->attach($container->get('SmartyViewTemplatePathStack'));
+        $resolver = new SmartyViewResolver();
+        $resolver->attach($container->get(SmartyViewTemplateMapResolver::class));
+        $resolver->attach($container->get(SmartyViewTemplatePathStack::class));
         return $resolver;
     }
+
     /**
      * Create the aggregate view resolver
+     *
+     * @deprecated use invoke mechanism
      *
      * Creates a Laminas\View\Resolver\AggregateResolver and attaches the template
      * map resolver and path stack resolver
@@ -36,6 +41,6 @@ class SmartyViewResolverFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, 'SmartyViewResolver');
+        return $this($serviceLocator, SmartyViewResolver::class);
     }
 }

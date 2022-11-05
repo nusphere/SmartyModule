@@ -6,7 +6,7 @@ use Interop\Container\Exception\ContainerException;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use SmartyModule\View\Renderer\SmartyRenderer;
 
@@ -17,8 +17,8 @@ use SmartyModule\View\Renderer\SmartyRenderer;
  * Date: 23.01.13
  * Time: 13:39
  */
-class SmartyRendererFactory implements  FactoryInterface {
-
+class SmartyRendererFactory implements  FactoryInterface
+{
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $smarty = new \Smarty();
@@ -57,6 +57,14 @@ class SmartyRendererFactory implements  FactoryInterface {
         return $renderer;
     }
 
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     *
+     * @deprecated use invoke mechanism
+     *
+     * @return SmartyRenderer
+     * @throws \Psr\Container\ContainerExceptionInterface
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         return $this($serviceLocator, SmartyRenderer::class);
