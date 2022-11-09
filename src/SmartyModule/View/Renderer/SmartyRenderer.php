@@ -145,7 +145,10 @@ class SmartyRenderer extends PhpRenderer
 
         // add the PhpRenderer to the given smarty vars
         $this->smarty->assign('this', $this);
-        $this->smarty->assign($this->scopeVars[$this->__level]);
+
+        foreach ($this->scopeVars as $scopedVars) {
+            $this->smarty->assign($scopedVars);
+        }
 
         while ($this->__template = array_pop($this->__templates)) {
             $this->__template;
