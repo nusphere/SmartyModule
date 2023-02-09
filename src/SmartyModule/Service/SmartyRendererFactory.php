@@ -46,6 +46,19 @@ class SmartyRendererFactory implements  FactoryInterface {
             $smarty->setTemplateDir($config['view_manager']['template_path_stack']);
         }
 
+        // add own smarty plugin files
+        if (isset($config['view_manager']) && isset($config['view_manager']['plugin_path_stack'])) {
+            $pluginPathStack = $config['view_manager']['plugin_path_stack'];
+
+            if (is_array($pluginPathStack) && count($pluginPathStack) > 0) {
+                foreach ($pluginPathStack as $pluginPath) {
+                    if (is_dir($pluginPath)) {
+                        $smarty->addPluginsDir($pluginPath);
+                    }
+                }
+            }
+        }
+
         $resolver = $container->get('SmartyViewResolver');
         $helpers = $container->get('ViewHelperManager');
 

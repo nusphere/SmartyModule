@@ -11,6 +11,9 @@
         "smarty",
         "view"
     ],
+    "config": {
+        "allow-plugins": false
+    },
     "require": {
         "php": "^7.0 || ^8.0",
         "laminas/laminas-view": "^2.11",
@@ -35,6 +38,10 @@
         {
             "name": "Murga Nikolay",
             "email": "work@murga.kiev.ua"
+        },
+        {
+            "name": "Sebastian Hopfe",
+            "email": "nusphere83@gmail.com"
         }
     ],
     "autoload": {
