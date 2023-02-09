@@ -36,6 +36,9 @@ Change you Application config like this:
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
+        'plugin_path_stack' => array(
+            __DIR__ . '/../smarty-plugins',
+        ),
     ),
     ...
 
