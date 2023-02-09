@@ -143,16 +143,12 @@ class SmartyRenderer extends PhpRenderer
         // assigns to a double-underscored variable, to prevent naming collisions
         $this->scopeVars[$this->__level] = $this->vars()->getArrayCopy();
 
-        $scopedVars = [];
-        foreach ($this->scopeVars as $vars) {
-            $scopedVars = array_merge($scopedVars, $vars);
-        }
-
         // add the PhpRenderer to the given smarty vars
-        $scopedVars['this'] = $this;
+        $this->smarty->assign('this', $this);
 
-        $this->smarty->clearAllAssign();
-        $this->smarty->assign($scopedVars);
+        foreach ($this->scopeVars as $scopedVars) {
+            $this->smarty->assign($scopedVars);
+        }
 
         while ($this->__template = array_pop($this->__templates)) {
             $this->__template;
@@ -171,6 +167,12 @@ class SmartyRenderer extends PhpRenderer
         }
         
         $this->setVars(array_pop($this->__varsCache));
+
+        // clear smarty vars from scope
+        foreach ($this->scopeVars[$this->__level] as $key => $val) {
+            $this->smarty->clearAssign($key);
+        }
+
         unset($this->scopeVars[$this->__level]);
         $this->__level--;
         
