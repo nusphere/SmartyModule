@@ -12,9 +12,7 @@
         "view"
     ],
     "config": {
-        "allow-plugins": {
-            "laminas/*": true
-        }
+        "allow-plugins": false
     },
     "require": {
         "php": "^7.0 || ^8.0",
@@ -45,6 +43,10 @@
         {
             "name": "Murga Nikolay",
             "email": "work@murga.kiev.ua"
+        },
+        {
+            "name": "Sebastian Hopfe",
+            "email": "nusphere83@gmail.com"
         }
     ],
     "autoload": {

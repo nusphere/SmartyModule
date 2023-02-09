@@ -23,6 +23,11 @@ return array(
         'smarty_set_path_stack_dirs' => false,
 
         /**
+         * add additional folders for your own plugin files, they will be added to the plugin folder stack
+         */
+        'plugin_path_stack' => [],
+
+        /**
          * Register the view strategy with the view manager. This is required!
          */
         'strategies' => array(
