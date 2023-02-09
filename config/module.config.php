@@ -1,4 +1,16 @@
 <?php
+
+use SmartyModule\Resolver\SmartyViewTemplatePathStack;
+use SmartyModule\Resolver\SmartyViewResolver;
+use SmartyModule\Resolver\SmartyViewTemplateMapResolver;
+use SmartyModule\Service\SmartyStrategyFactory;
+use SmartyModule\Service\SmartyRendererFactory;
+use SmartyModule\Service\SmartyViewTemplatePathStackFactory;
+use SmartyModule\Service\SmartyViewTemplateMapResolverFactory;
+use SmartyModule\Service\SmartyViewResolverFactory;
+use SmartyModule\View\Renderer\SmartyRenderer;
+use SmartyModule\View\Strategy\SmartyStrategy;
+
 /**
  * @link        https://github.com/MurgaNikolay/SmartyModule for the canonical source repository
  * @license     http://framework.zend.com/license/new-bsd New BSD License
@@ -38,13 +50,20 @@ return array(
             //'error_reporting' => E_ERROR
         ),
     ),
-    'service_manager' => array(
-        'factories' => array(
-            'SmartyViewResolver' => 'SmartyModule\Service\SmartyViewResolverFactory',
-            'SmartyViewTemplateMapResolver' => 'SmartyModule\Service\SmartyViewTemplateMapResolverFactory',
-            'SmartyViewTemplatePathStack' => 'SmartyModule\Service\SmartyViewTemplatePathStackFactory',
-            'SmartyRenderer' => 'SmartyModule\Service\SmartyRendererFactory',
-            'SmartyStrategy' => 'SmartyModule\Service\SmartyStrategyFactory',
-        )
-    ),
+    'service_manager' => [
+        'aliases' => [
+            'SmartyViewResolver' => SmartyViewResolver::class,
+            'SmartyViewTemplateMapResolver' => SmartyViewTemplateMapResolver::class,
+            'SmartyViewTemplatePathStack' => SmartyViewTemplatePathStack::class,
+            'SmartyRenderer' => SmartyRenderer::class,
+            'SmartyStrategy' => SmartyStrategy::class
+        ],
+        'factories' => [
+            SmartyViewResolver::class            => SmartyViewResolverFactory::class,
+            SmartyViewTemplateMapResolver::class => SmartyViewTemplateMapResolverFactory::class,
+            SmartyViewTemplatePathStack::class   => SmartyViewTemplatePathStackFactory::class,
+            SmartyRenderer::class                => SmartyRendererFactory::class,
+            SmartyStrategy::class                => SmartyStrategyFactory::class,
+        ],
+    ],
 );

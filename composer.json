@@ -5,8 +5,7 @@
     "type": "library",
     "license": "MIT",
     "keywords": [
-        "zf2",
-        "zend",
+        "laminas",
         "module",
         "smarty",
         "view"
@@ -15,7 +14,7 @@
         "allow-plugins": false
     },
     "require": {
-        "php": "^7.0 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "laminas/laminas-view": "^2.11",
         "laminas/laminas-servicemanager": "^3.5",
         "laminas/laminas-eventmanager": "^3.2",
@@ -23,7 +22,7 @@
         "laminas/laminas-dependency-plugin": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^9.0",
         "laminas/laminas-modulemanager": "^2.9",
         "laminas/laminas-mvc": "^3.0",
         "laminas/laminas-log": "^2.11",

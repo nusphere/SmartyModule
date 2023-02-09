@@ -7,8 +7,9 @@ use Interop\Container\Exception\ContainerException;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Resolver as ViewResolver;
-use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use SmartyModule\Resolver\SmartyViewTemplateMapResolver;
 
 
 class SmartyViewTemplateMapResolverFactory implements FactoryInterface
@@ -24,11 +25,13 @@ class SmartyViewTemplateMapResolverFactory implements FactoryInterface
                 $map = $config['template_map'];
             }
         }
-        return new ViewResolver\TemplateMapResolver($map);
+        return new SmartyViewTemplateMapResolver($map);
     }
 
     /**
      * Create the template map view resolver
+     *
+     * @deprecated use invoke mechanism
      *
      * Creates a Laminas\View\Resolver\AggregateResolver and populates it with the
      * ['view_manager']['template_map']
@@ -38,7 +41,7 @@ class SmartyViewTemplateMapResolverFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, 'SmartyViewTemplateMapResolver');
+        return $this($serviceLocator, SmartyViewTemplateMapResolver::class);
     }
 
 }

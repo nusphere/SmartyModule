@@ -10,12 +10,9 @@
 namespace SmartyModule\Service;
 
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
-use Laminas\View\Resolver as ViewResolver;
-use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use SmartyModule\Resolver\SmartyViewTemplatePathStack;
 
 class SmartyViewTemplatePathStackFactory implements FactoryInterface
 {
@@ -23,7 +20,7 @@ class SmartyViewTemplatePathStackFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $config = $container->get('Config');
-        $templatePathStack = new ViewResolver\TemplatePathStack();
+        $templatePathStack = new SmartyViewTemplatePathStack();
         if (is_array($config) && isset($config['view_manager'])) {
             $config = $config['view_manager'];
             if (is_array($config) && isset($config['template_path_stack'])) {
@@ -40,11 +37,13 @@ class SmartyViewTemplatePathStackFactory implements FactoryInterface
     /**
      * Create service
      *
+     * @deprecated use invoke mechanism
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, 'SmartyViewTemplatePathStack');
+        return $this($serviceLocator, SmartyViewTemplatePathStack::class);
     }
 }

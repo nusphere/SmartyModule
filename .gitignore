@@ -7,5 +7,7 @@ tmp/
 .DS_Store
 composer.lock
 vendor/
+phpunit.xml
+.phpunit.result.cache
 .*.sw*
 .*.un~
