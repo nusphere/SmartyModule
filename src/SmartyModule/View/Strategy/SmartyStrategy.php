@@ -20,9 +20,9 @@ class SmartyStrategy implements ListenerAggregateInterface
 
     protected $view;
 
-    public function __construct(SmartyRenderer $renderer)
-    {
-        $this->renderer = $renderer;
+    public function __construct(
+        private SmartyRenderer $renderer
+    ) {
     }
 
     /**

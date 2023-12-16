@@ -8,6 +8,6 @@ tmp/
 composer.lock
 vendor/
 phpunit.xml
-.phpunit.result.cache
 .*.sw*
 .*.un~
+/.phpunit.cache/

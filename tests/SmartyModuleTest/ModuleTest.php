@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SmartyModuleTest;
-
 
 use ApplicationTest\Bootstrap;
 use PHPUnit\Framework\TestCase;
@@ -50,7 +48,7 @@ final class ModuleTest extends TestCase
         $this->assertInstanceOf($expectedClassName, $service);
     }
 
-    public function provideServices()
+    public static function provideServices(): array
     {
         return [
             [
@@ -107,6 +105,4 @@ final class ModuleTest extends TestCase
             ],
         ];
     }
-
-
 }
